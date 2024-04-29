@@ -14,6 +14,8 @@ extern void shift_right2left_kepp_ledon();
 // button
 extern void init_button(void);
 extern int get_button(int button_pin, int button_number);
+extern void led_all_on_off();
 
-
+extern volatile uint32_t shift_timer; //led.c에서도 쓰기 위위함
+extern volatile uint32_t ms_count;
 #endif /* LED_H_ */
