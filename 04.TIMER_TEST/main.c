@@ -33,9 +33,11 @@ ISR(TIMER0_OVF_vect){
 	shift_timer++;
 }
 
-
+#define LEFT2RIGHT 0
+#define RIGHT2LEFT 1
 int main(void)
 {
+	int job = 0; //동시 실행 문제
 	init_timer0();
 
 	//led A레지스터
@@ -48,8 +50,15 @@ int main(void)
 		// timer를체크하자, 1ms마다 뜬다고 했어
 
 		// led_all_on_off();
-		shift_left2right_keep_ledon();
-		shift_right2left_kepp_ledon();
+		switch(job){
+			case LEFT2RIGHT:
+				shift_left2right_keep_ledon(&job);
+				break;
+			case RIGHT2LEFT:	
+				shift_right2left_kepp_ledon(&job);
+				break;
+		}
+
 		#else //기존 delay적용 코드 방식
 			PORTA = 0xff;
 			_delay_ms(1000); // 여기서 잠을 자는 문제점

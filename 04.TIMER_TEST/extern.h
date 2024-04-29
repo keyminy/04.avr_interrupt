@@ -8,8 +8,8 @@
 #define EXTERN_H_
 
 // led
-extern void shift_left2right_keep_ledon();
-extern void shift_right2left_kepp_ledon();
+extern void shift_left2right_keep_ledon(int* pjob);
+extern void shift_right2left_kepp_ledon(int* pjob);
 
 // button
 extern void init_button(void);

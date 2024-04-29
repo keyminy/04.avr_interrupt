@@ -28,7 +28,7 @@ void led_all_on_off(){
 }
 
 
-void shift_left2right_keep_ledon(void){
+void shift_left2right_keep_ledon(int* pjob){
 	#if 1
 		//delay안하고 가기
 		static int i = 0; // 이전에 update된 내용을 유지하기위해, 전역함수와 동일한 효과
@@ -42,6 +42,7 @@ void shift_left2right_keep_ledon(void){
 			if(i >= 8){
 				i=0; //circulation
 				PORTA = 0x00;
+				*pjob = 1; // RIGHT2LEFT로 넘어갑니다
 			}else{
 				// shifting logic
 				PORTA |= 0b00000001 << i++; // 1.shift left , 2. i++해줌
@@ -59,7 +60,7 @@ void shift_left2right_keep_ledon(void){
 		_delay_ms(300);
 	#endif
 }
-void shift_right2left_kepp_ledon(void){
+void shift_right2left_kepp_ledon(int* pjob){
 	
 #if 1
 	//delay안하고 가기
@@ -74,6 +75,7 @@ void shift_right2left_kepp_ledon(void){
 		if(i >= 8){
 			i=0; //circulation
 			PORTA = 0x00;
+			*pjob = 0; // LEFT2RIGHT로 넘어갑니다
 		}else{
 			// shifting logic
 			PORTA |= 0b10000000 >> i++; // 1.shift right , 2. i++해줌
