@@ -34,12 +34,18 @@ void shift_left2right_keep_ledon(void){
 		static int i = 0; // 이전에 update된 내용을 유지하기위해, 전역함수와 동일한 효과
 		//timer interrupt가 300ms가 됬는지 안됬는지 check하는 로직 필요(main.c에 있다)
 		// shift_timer를 이용합시다(extern.h)
-		if(shift_timer >= 300){
+		if(shift_timer >= 300){ // 00000001 -> 00000011 -> .... -> 11111111
 			// shift_timer==300해버리면, 실제 상황에서 301ms가 넘어오면 실행안됨
 			//300ms가 되면 bit shift를 해주는거야!
 			shift_timer = 0; //shift_timer를 0으로 초기화 해주는거 필수
-			PORTA |= 0b00000001 << i++; // shift left
-			i %= 8; // 다음 led를 준비
+			
+			if(i >= 8){
+				i=0; //circulation
+				PORTA = 0x00;
+			}else{
+				// shifting logic
+				PORTA |= 0b00000001 << i++; // 1.shift left , 2. i++해줌
+			}
 		}
 
 	#else
@@ -54,6 +60,26 @@ void shift_left2right_keep_ledon(void){
 	#endif
 }
 void shift_right2left_kepp_ledon(void){
+	
+#if 1
+	//delay안하고 가기
+	static int i = 0; // 이전에 update된 내용을 유지하기위해, 전역함수와 동일한 효과
+	//timer interrupt가 300ms가 됬는지 안됬는지 check하는 로직 필요(main.c에 있다)
+	// shift_timer를 이용합시다(extern.h)
+	if(shift_timer >= 300){ // 00000001 -> 00000011 -> .... -> 11111111
+		// shift_timer==300해버리면, 실제 상황에서 301ms가 넘어오면 실행안됨
+		//300ms가 되면 bit shift를 해주는거야!
+		shift_timer = 0; //shift_timer를 0으로 초기화 해주는거 필수
+			
+		if(i >= 8){
+			i=0; //circulation
+			PORTA = 0x00;
+		}else{
+			// shifting logic
+			PORTA |= 0b10000000 >> i++; // 1.shift right , 2. i++해줌
+		}
+	}
+#else
 	for(int i=0; i < 8; i++){
 		PORTA |= 0b10000000 >> i; // 기존 led를 현상유지 하기위해 |=를 해준다
 		// '=' 하면은 기존 것 꺼집니다
@@ -61,4 +87,5 @@ void shift_right2left_kepp_ledon(void){
 	}
 	PORTA = 0x00;
 	_delay_ms(300);
+#endif
 }

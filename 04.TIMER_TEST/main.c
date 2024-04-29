@@ -47,9 +47,9 @@ int main(void)
 		#if 1
 		// timer를체크하자, 1ms마다 뜬다고 했어
 
-		led_all_on_off();
-		//shift_left2right_keep_ledon();
-		//shift_right2left_kepp_ledon();
+		// led_all_on_off();
+		shift_left2right_keep_ledon();
+		shift_right2left_kepp_ledon();
 		#else //기존 delay적용 코드 방식
 			PORTA = 0xff;
 			_delay_ms(1000); // 여기서 잠을 자는 문제점
