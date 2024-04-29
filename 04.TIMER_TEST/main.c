@@ -6,17 +6,59 @@
  */ 
 
 #include <avr/io.h>
-#include F_CPU 16000000UL
+#define F_CPU 16000000UL
 #include <util/delay.h>
 //interrupt 관련 함수
 #include <avr/interrupt.h>
+#include "extern.h"
+
+void init_timer0();
+
+//led를 가동해보자(전역변수 선언)
+// ISR안에 쓰는 변수는 변수 type앞에 volatile써야한다.
+// 이유는 최적화 방지를 위함이다.(내가 작성한 코드 일일이 수행하게 해줘)
+volatile uint32_t ms_count = 0; // ms count
+
+
+// 256개의 pulse(=1ms)를 count하면 이곳으로 자동적으로 진입한다.
+// 즉, 256개의 pulse == 1ms
+ISR(TIMER0_OVF_vect){
+	/* 인터럽트 루틴을 가능한 짧게 짜라, ms_count만 증가시키고 빠져나오게함 */
+	TCNT0=6; // 6 ~ 256개의 pulse카운트 --> 1ms를 맞춰주기 위해서 TCNT0을 6으로 설정
+	ms_count++;
+	//ms_count delay없애는 작업
+}
+
 
 int main(void)
 {
-    /* Replace with your application code */
+	init_timer0();
+    int led_toggle = 0;
+	//led A레지스터
+	DDRA = 0xff; //출력모드 설정
+	PORTA = 0x00; // led all off
+
     while (1) 
     {
-		
+		#if 1
+		// timer를체크하자, 1ms마다 뜬다고 했어
+		if(ms_count >= 500){
+			//hardware적으로 뜨기때문에 값이 툭 튈수도 있어요 그래서 >=로 하기(==대신)
+			ms_count = 0; // clear
+			led_toggle = !led_toggle; // 1혹은 0의 값
+			if(led_toggle)
+				PORTA = 0xff;
+			else 
+				PORTA = 0x00;
+		}
+		shift_left2right_keep_ledon();
+		shift_right2left_kepp_ledon();
+		#else //기존 delay적용 코드 방식
+			PORTA = 0xff;
+			_delay_ms(1000); // 여기서 잠을 자는 문제점
+			PORTA =0x00;
+			_delay_ms(1000);
+		#endif
     }
 }
 
