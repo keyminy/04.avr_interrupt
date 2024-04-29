@@ -57,6 +57,12 @@ int main(void)
 			case RIGHT2LEFT:	
 				shift_right2left_kepp_ledon(&job);
 				break;
+			case FLOWER_ON:
+				flower_on(&job);
+				break;
+			case FLOWER_OFF:
+				flower_off(&job);
+				break;
 		}
 
 		#else //기존 delay적용 코드 방식

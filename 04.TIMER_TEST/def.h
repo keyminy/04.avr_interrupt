@@ -11,7 +11,7 @@
 
 #define LEFT2RIGHT 0
 #define RIGHT2LEFT 1
-
-
+#define FLOWER_ON 2
+#define FLOWER_OFF 3
 
 #endif /* DEF_H_ */
