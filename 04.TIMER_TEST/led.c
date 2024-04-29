@@ -6,9 +6,10 @@
  */ 
 #include "led.h"
 #include "extern.h"
+#include "def.h"
 
-void shift_left2right_keep_ledon();
-void shift_right2left_kepp_ledon();
+void shift_left2right_keep_ledon(int* pjob);
+void shift_right2left_kepp_ledon(int* pjob);
 void led_all_on_off();
 
 
@@ -42,7 +43,7 @@ void shift_left2right_keep_ledon(int* pjob){
 			if(i >= 8){
 				i=0; //circulation
 				PORTA = 0x00;
-				*pjob = 1; // RIGHT2LEFT로 넘어갑니다
+				*pjob = RIGHT2LEFT; // RIGHT2LEFT로 넘어갑니다
 			}else{
 				// shifting logic
 				PORTA |= 0b00000001 << i++; // 1.shift left , 2. i++해줌
@@ -75,7 +76,7 @@ void shift_right2left_kepp_ledon(int* pjob){
 		if(i >= 8){
 			i=0; //circulation
 			PORTA = 0x00;
-			*pjob = 0; // LEFT2RIGHT로 넘어갑니다
+			*pjob = LEFT2RIGHT; // LEFT2RIGHT로 넘어갑니다
 		}else{
 			// shifting logic
 			PORTA |= 0b10000000 >> i++; // 1.shift right , 2. i++해줌

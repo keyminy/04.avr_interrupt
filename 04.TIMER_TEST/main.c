@@ -12,6 +12,7 @@
 //interrupt 관련 함수
 #include <avr/interrupt.h>
 #include "extern.h"
+#include "def.h"
 
 void init_timer0();
 
@@ -33,8 +34,7 @@ ISR(TIMER0_OVF_vect){
 	shift_timer++;
 }
 
-#define LEFT2RIGHT 0
-#define RIGHT2LEFT 1
+
 int main(void)
 {
 	int job = 0; //동시 실행 문제

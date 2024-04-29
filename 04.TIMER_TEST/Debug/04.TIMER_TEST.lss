@@ -156,17 +156,17 @@ Disassembly of section .text:
   d4:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <shift_timer+0x3>
 			
 			if(i >= 8){
-  d8:	20 91 02 01 	lds	r18, 0x0102	; 0x800102 <i.1749>
-  dc:	30 91 03 01 	lds	r19, 0x0103	; 0x800103 <i.1749+0x1>
+  d8:	20 91 02 01 	lds	r18, 0x0102	; 0x800102 <i.1751>
+  dc:	30 91 03 01 	lds	r19, 0x0103	; 0x800103 <i.1751+0x1>
   e0:	28 30       	cpi	r18, 0x08	; 8
   e2:	31 05       	cpc	r19, r1
   e4:	5c f0       	brlt	.+22     	; 0xfc <shift_left2right_keep_ledon+0x4e>
 				i=0; //circulation
-  e6:	10 92 03 01 	sts	0x0103, r1	; 0x800103 <i.1749+0x1>
-  ea:	10 92 02 01 	sts	0x0102, r1	; 0x800102 <i.1749>
+  e6:	10 92 03 01 	sts	0x0103, r1	; 0x800103 <i.1751+0x1>
+  ea:	10 92 02 01 	sts	0x0102, r1	; 0x800102 <i.1751>
 				PORTA = 0x00;
   ee:	1b ba       	out	0x1b, r1	; 27
-				*pjob = 1; // RIGHT2LEFT로 넘어갑니다
+				*pjob = RIGHT2LEFT; // RIGHT2LEFT로 넘어갑니다
   f0:	21 e0       	ldi	r18, 0x01	; 1
   f2:	30 e0       	ldi	r19, 0x00	; 0
   f4:	fc 01       	movw	r30, r24
@@ -178,8 +178,8 @@ Disassembly of section .text:
 				PORTA |= 0b00000001 << i++; // 1.shift left , 2. i++해줌
   fc:	c9 01       	movw	r24, r18
   fe:	01 96       	adiw	r24, 0x01	; 1
- 100:	90 93 03 01 	sts	0x0103, r25	; 0x800103 <i.1749+0x1>
- 104:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <i.1749>
+ 100:	90 93 03 01 	sts	0x0103, r25	; 0x800103 <i.1751+0x1>
+ 104:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <i.1751>
  108:	81 e0       	ldi	r24, 0x01	; 1
  10a:	90 e0       	ldi	r25, 0x00	; 0
  10c:	02 c0       	rjmp	.+4      	; 0x112 <shift_left2right_keep_ledon+0x64>
@@ -217,17 +217,17 @@ Disassembly of section .text:
  144:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <shift_timer+0x3>
 			
 		if(i >= 8){
- 148:	20 91 00 01 	lds	r18, 0x0100	; 0x800100 <_edata>
- 14c:	30 91 01 01 	lds	r19, 0x0101	; 0x800101 <_edata+0x1>
+ 148:	20 91 00 01 	lds	r18, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 14c:	30 91 01 01 	lds	r19, 0x0101	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
  150:	28 30       	cpi	r18, 0x08	; 8
  152:	31 05       	cpc	r19, r1
  154:	4c f0       	brlt	.+18     	; 0x168 <shift_right2left_kepp_ledon+0x4a>
 			i=0; //circulation
- 156:	10 92 01 01 	sts	0x0101, r1	; 0x800101 <_edata+0x1>
- 15a:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <_edata>
+ 156:	10 92 01 01 	sts	0x0101, r1	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
+ 15a:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <__DATA_REGION_ORIGIN__>
 			PORTA = 0x00;
  15e:	1b ba       	out	0x1b, r1	; 27
-			*pjob = 0; // LEFT2RIGHT로 넘어갑니다
+			*pjob = LEFT2RIGHT; // LEFT2RIGHT로 넘어갑니다
  160:	fc 01       	movw	r30, r24
  162:	11 82       	std	Z+1, r1	; 0x01
  164:	10 82       	st	Z, r1
@@ -237,8 +237,8 @@ Disassembly of section .text:
 			PORTA |= 0b10000000 >> i++; // 1.shift right , 2. i++해줌
  168:	c9 01       	movw	r24, r18
  16a:	01 96       	adiw	r24, 0x01	; 1
- 16c:	90 93 01 01 	sts	0x0101, r25	; 0x800101 <_edata+0x1>
- 170:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
+ 16c:	90 93 01 01 	sts	0x0101, r25	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
+ 170:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
  174:	80 e8       	ldi	r24, 0x80	; 128
  176:	90 e0       	ldi	r25, 0x00	; 0
  178:	02 c0       	rjmp	.+4      	; 0x17e <shift_right2left_kepp_ledon+0x60>
@@ -329,10 +329,10 @@ ISR(TIMER0_OVF_vect){
  20e:	08 95       	ret
 
 00000210 <main>:
+	shift_timer++;
 }
 
-#define LEFT2RIGHT 0
-#define RIGHT2LEFT 1
+
 int main(void)
 {
  210:	cf 93       	push	r28

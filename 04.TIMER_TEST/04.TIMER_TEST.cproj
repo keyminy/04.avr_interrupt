@@ -128,6 +128,9 @@
     <Compile Include="button.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="def.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="extern.h">
       <SubType>compile</SubType>
     </Compile>

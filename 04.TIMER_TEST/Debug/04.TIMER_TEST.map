@@ -33,7 +33,7 @@ Discarded input sections
  .bss           0x00000000        0x0 led.o
  .text.led_all_on_off
                 0x00000000       0x54 led.o
- .bss.led_toggle.1745
+ .bss.led_toggle.1747
                 0x00000000        0x2 led.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
@@ -349,8 +349,8 @@ END GROUP
                 0x00800100                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.i.1753    0x00800100        0x2 led.o
- .bss.i.1749    0x00800102        0x2 led.o
+ .bss.i.1755    0x00800100        0x2 led.o
+ .bss.i.1751    0x00800102        0x2 led.o
  .bss.shift_timer
                 0x00800104        0x4 main.o
                 0x00800104                shift_timer
